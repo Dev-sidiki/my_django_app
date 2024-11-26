@@ -28,10 +28,15 @@ const ProductList = () => {
     if (params.length > 0) url += `?${params.join("&")}`;
 
     console.log(url);
+    // console.log(params);
+    // console.log(params.join("&"));
+
     try {
       const response = await axios.get(url);
-      if (response.data && response.data.products) {
-        setProducts(response.data.products);
+      console.log(response.data.results.products);
+      if (response.data && response.data.results.products) {
+        console.log(response.data);
+        setProducts(response.data.results.products);
         setError(null); // Réinitialiser les erreurs
       } else {
         setProducts([]);
