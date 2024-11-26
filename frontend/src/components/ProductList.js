@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import "./ProductList.css";
 
 const ProductList = () => {
@@ -63,23 +64,31 @@ const ProductList = () => {
       <div className="products">
         {products.length > 0
           ? products.map((product) => (
-              <div className="product-card" key={product.id}>
-                {/* Affichage de l'image (URL vérifiée) */}
-                {product.image ? (
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="product-image"
-                  />
-                ) : (
-                  <div className="placeholder-image">Image non disponible</div>
-                )}
+              <Link
+                to={`/products/${product.id}`}
+                key={product.id}
+                className="product-link"
+              >
+                <div className="product-card" key={product.id}>
+                  {/* Affichage de l'image (URL vérifiée) */}
+                  {product.image ? (
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="product-image"
+                    />
+                  ) : (
+                    <div className="placeholder-image">
+                      Image non disponible
+                    </div>
+                  )}
 
-                {/* Détails du produit */}
-                <h2>{product.name}</h2>
-                <p>{product.description}</p>
-                <p>${product.price}</p>
-              </div>
+                  {/* Détails du produit */}
+                  <h2>{product.name}</h2>
+                  <p>{product.description}</p>
+                  <p>${product.price}</p>
+                </div>
+              </Link>
             ))
           : // Message si aucun produit n'est disponible
             !error && <p>Aucun produit disponible pour le moment.</p>}

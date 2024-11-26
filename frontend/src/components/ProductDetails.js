@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import "./ProductDetails.css";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -24,6 +25,12 @@ const ProductDetails = () => {
       ) : (
         <p>Chargement...</p>
       )}
+
+      <div className="back-button-container">
+        <Link to="/products" className="back-button">
+          Retour au Catalogue
+        </Link>
+      </div>
     </div>
   );
 };
