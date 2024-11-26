@@ -5,6 +5,11 @@ import "./ProductList.css";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
+  const [filters, setFilters] = useState({
+    category: "",
+    price_min: "",
+    price_max: "",
+  });
 
   useEffect(() => {
     axios
@@ -31,6 +36,28 @@ const ProductList = () => {
 
       {/* Affichage du message d'erreur, si nécessaire */}
       {error && <p className="error">{error}</p>}
+
+      <div>
+        <input
+          type="text"
+          placeholder="Catégorie"
+          onChange={(e) => setFilters({ ...filters, category: e.target.value })}
+        />
+        <input
+          type="number"
+          placeholder="Prix Min"
+          onChange={(e) =>
+            setFilters({ ...filters, price_min: e.target.value })
+          }
+        />
+        <input
+          type="number"
+          placeholder="Prix Max"
+          onChange={(e) =>
+            setFilters({ ...filters, price_max: e.target.value })
+          }
+        />
+      </div>
 
       {/* Affichage des produits */}
       <div className="products">
