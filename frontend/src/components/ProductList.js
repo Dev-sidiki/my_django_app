@@ -61,6 +61,12 @@ const ProductList = () => {
     fetchProducts();
   };
 
+  // Réinitialiser les filtres
+  const handleResetFilters = () => {
+    setFilters({ category: "", price_min: "", price_max: "" });
+    fetchProducts(); // Recharger tous les produits
+  };
+
   return (
     <div className="product-list">
       <h1>Catalogue de Produits</h1>
@@ -92,6 +98,7 @@ const ProductList = () => {
           onChange={handleFilterChange}
         />
         <button onClick={handleApplyFilters}>Appliquer les Filtres</button>
+        <button onClick={handleResetFilters}>Réinitialiser</button>
       </div>
 
       {/* Affichage des produits */}
