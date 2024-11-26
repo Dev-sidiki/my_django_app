@@ -20,7 +20,9 @@ const ProductDetails = () => {
         <>
           <h1>{product.name}</h1>
           <p>{product.description}</p>
-          <p>${product.price}</p>
+          <p>Prix: {product.price} €</p>
+          <p>Catégorie: {product.category}</p>
+          <p>Marque: {product.brand}</p>
         </>
       ) : (
         <p>Chargement...</p>

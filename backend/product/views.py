@@ -3,9 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.pagination import PageNumberPagination
 from .filters import ProductsFilter
-
 from .serializers import ProductSerializer
-
 from .models import Product
 
 # Create your views here.
@@ -28,28 +26,20 @@ def get_product(request, pk):
 
 @api_view(['GET'])
 def get_products(request):
-    queryset = Product.objects.all()
+    # Appliquer les filtres
+    filterset = ProductsFilter(request.GET, queryset=Product.objects.all())
 
+    if not filterset.is_valid():
+        return Response({"errors": filterset.errors}, status=400)
 
-    category = request.GET.get('category', None)
-    min_price = request.GET.get('price_min', None)
-    max_price = request.GET.get('price_max', None)
-
-    if category:
-        queryset = queryset.filter(category__icontains=category)
-    if min_price:
-        queryset = queryset.filter(price__gte=min_price)
-    if max_price:
-        queryset = queryset.filter(price__lte=max_price)
-
-
+    # Pagination
     paginator = PageNumberPagination()
     paginator.page_size = 10
-    paginated_queryset = paginator.paginate_queryset(queryset, request)
+    paginated_queryset = paginator.paginate_queryset(filterset.qs, request)
 
+    # Sérialisation
     serializer = ProductSerializer(paginated_queryset, many=True)
     return paginator.get_paginated_response({"products": serializer.data})
-
 
 # @api_view(['POST'])
 # def create_product(request):
