@@ -39,3 +39,36 @@
   text-decoration: none;
   color: inherit;
 }
+
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.filters input {
+  padding: 5px;
+  border: 2px solid #00ff00;
+  border-radius: 5px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.filters button {
+  padding: 5px 10px;
+  background: #ff00ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.filters button:hover {
+  background: #00ff00;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
